@@ -7,7 +7,7 @@ This repository is a self-contained example of how I'd like to query JSON data. 
 
     db.Translations.Where(
         t => t.APIResult.WhereJson<GoogleTranslateResult>
-    (p => p.data.detections[0][0].language == "en"))
+            (p => p.data.detections[0][0].language == "en"))
 
 
 This would translate into the following SQL query.
@@ -22,13 +22,13 @@ This would translate into the following SQL query.
 
 
     {
-        "data": {
-            "detections": [
+        'data': {
+            'detections': [
                 [
                     {
-                        "language":"en",
-                        "isReliable":false,
-                        "confidence":0.011111111
+                        'language':'en',
+                        'isReliable':false,
+                        'confidence':0.011111111
                     }
                 ]
             ]
