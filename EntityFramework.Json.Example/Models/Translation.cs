@@ -2,8 +2,18 @@
 {
     public class Translation
     {
-        public long ID { get; set; }
-        public string Text { get; set; }
-        public string APIResult { get; set; }
+        public short ID { get; private set; }
+        public string Text { get; private set; }
+        public string APIResult { get; private set; }
+
+        public static Translation From(short id, string languageCode, bool isReliable, double confidence, string text)
+        {
+            return new Translation
+            {
+                ID = id,
+                APIResult = $"{{\"data\":{{\"detections\":[[{{\"language\":\"{languageCode}\",\"isReliable\":{isReliable},\"confidence\":{confidence}}}]]}}}}",
+                Text = text
+            };
+        }
     }
 }
