@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using EntityFramework.Json.Example.Models.GoogleTranslate;
 
 namespace EntityFramework.Json.Example
@@ -11,40 +9,30 @@ namespace EntityFramework.Json.Example
     {
         static void Main(string[] args)
         {
-            MainAsync(args).Wait();
-        }
-
-        static async Task<int> MainAsync(string[] args)
-        {
             using (var db = new TranslationContext())
             {
                 db.Database.Log = s => Console.WriteLine(s);
 
-                await Seed(db);
+                Seed(db);
 
-                await QueryExamples(db);
+                QueryExamples(db);
             }
-
-            return 0;
         }
 
-        private static Task QueryExamples(TranslationContext db)
+        private static void QueryExamples(TranslationContext db)
         {
             db.Translations.Where(
-                t => t.APIResult.Contains<GoogleTranslateResult>(p => p.data.detections[0][0].isReliable)).ToListAsync();
+                t => t.APIResult.Contains<GoogleTranslateResult>(p => p.data.detections[0][0].isReliable)).ToList();
 
             db.Translations.Where(
-                t => t.APIResult.Contains<GoogleTranslateResult>(p => p.data.detections[0][0].language == "en")).ToListAsync();
+                t => t.APIResult.Contains<GoogleTranslateResult>(p => p.data.detections[0][0].language == "en")).ToList();
 
             db.Translations.Where(
-                t => t.APIResult.Contains<GoogleTranslateResult>(p => p.data.detections[0][0].confidence > 0.5)).ToListAsync();
-
-            return Task.FromResult(0);
+                t => t.APIResult.Contains<GoogleTranslateResult>(p => p.data.detections[0][0].confidence > 0.5)).ToList();
         }
 
-        private static Task Seed(TranslationContext db)
+        private static void Seed(TranslationContext db)
         {
-            return Task.FromResult(0);
         }
     }
 
