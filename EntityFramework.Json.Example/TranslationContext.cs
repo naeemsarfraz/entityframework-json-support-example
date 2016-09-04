@@ -5,6 +5,8 @@ namespace EntityFramework.Json.Example
 {
     public class TranslationContext : DbContext
     {
+        public DbSet<Translation> Translations { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
